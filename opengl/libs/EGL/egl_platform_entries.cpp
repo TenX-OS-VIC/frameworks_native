@@ -979,6 +979,7 @@ EGLContext eglCreateContextImpl(EGLDisplay dpy, EGLConfig config, EGLContext sha
                 if (version_value == 2 || version_value == 3) {
                     version = egl_connection_t::GLESv2_INDEX;
                 }
+
             }
             if (version == egl_connection_t::GLESv1_INDEX) {
                 android::GraphicsEnv::getInstance().setTargetStats(

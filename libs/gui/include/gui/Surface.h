@@ -415,6 +415,19 @@ public:
 
     virtual void destroy();
 
+    // MIUI ADD: START
+    void Surface::releaseSlot(int slot) {
+        Mutex::Autolock lock(mMutex);
+        if(mDequeuedSlots.count(slot) <= 0) {
+            ALOGV("Surface releaseSlot %d",slot);
+            if (mReportRemovedBuffers && (mSlots[slot].buffer != nullptr)) {
+                mRemovedBuffers.push_back(mSlots[slot].buffer);
+            }
+            mSlots[slot].buffer = nullptr;
+        }
+    }
+    // MIUI ADD: END
+
     // When client connects to Surface with reportBufferRemoval set to true, any buffers removed
     // from this Surface will be collected and returned here. Once this method returns, these
     // buffers will no longer be referenced by this Surface unless they are attached to this
